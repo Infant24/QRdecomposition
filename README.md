@@ -1,10 +1,16 @@
 # Algorithm for QR Decomposition
+
 ## Aim:
+
 To implement QR decomposition algorithm using the Gram-Schmidt method.
+
 ## Equipment’s required:
+
 1.	Hardware – PCs
 2.	Anaconda – Python 3.7 Installation / Moodle-Code Runner
+
 ## Algorithm:
+
 1.	Intialize the matrix Q and u
 2.	The vector u and e is given by
 
@@ -22,21 +28,43 @@ To implement QR decomposition algorithm using the Gram-Schmidt method.
 
 
 ## Program:
+
 ### Gram-Schmidt Method
+
 ```
-
-
-
-
-
-
+import numpy as np
+def QR_Decomposition(A):
+    n,m=A.shape
+    Q=np.empty((n,n))
+    U=np.empty((n,n))
+    U[:, 0]=A[:, 0]
+    Q[:, 0]=U[:, 0]/np.linalg.norm(U[:, 0])
+    
+    for i in range(1,n):
+        U[:, i]=A[:, i]
+        for j in range(i):
+            U[:, i]-=(A[:, i] @ Q[:, j])*Q[:, j]
+        Q[:, i]=U[:, i]/np.linalg.norm(U[:, i])
+    R=np.zeros((n,m))
+    for i in range(n):
+        for j in range(i, m):
+            R[i, j]=A[:, j] @ Q[:, i]
+    print(f"The Q Matrix is \n", Q)
+    
+    print(f"The R Matrix is \n",R)
+    
+a = np.array(eval(input()))
+QR_Decomposition(a)
 
 ```
 
 ## Output
-```
 
-```
+<img width="1469" height="966" alt="image" src="https://github.com/user-attachments/assets/5934af69-ea31-438f-9289-064366220ae1" />
+
+<img width="1478" height="956" alt="image" src="https://github.com/user-attachments/assets/4ceeba15-a01c-4868-be5e-fe327d73c9c9" />
+
 
 ## Result
+
 Thus the QR decomposition algorithm using the Gram-Schmidt process is written and verified the result.
